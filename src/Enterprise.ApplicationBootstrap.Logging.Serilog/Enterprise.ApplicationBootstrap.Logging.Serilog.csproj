@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <DefineConstants>JETBRAINS_ANNOTATIONS</DefineConstants>
+
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <DebugType>Embedded</DebugType>
+
+        <RepositoryUrl>{}</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <Authors>Fildrance</Authors>
+        <Description>Package with customized serilog elasticsearch logger.</Description>
+        <Copyright>Fildrance</Copyright>
+        <PackageTags>serilog;elastic;elasticsearch;formatter</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="JetBrains.Annotations" Version="2023.3.0" />
+        <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0" />
+        <PackageReference Include="Serilog.Enrichers.Span" Version="3.1.0" />
+        <PackageReference Include="Serilog.Formatting.Elasticsearch" Version="9.0.3" />
+        <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.1-dev-00561" />
+        <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+    </ItemGroup>
+
+</Project>

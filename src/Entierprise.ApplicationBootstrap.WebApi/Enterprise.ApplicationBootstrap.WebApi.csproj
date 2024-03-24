@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <DefineConstants>JETBRAINS_ANNOTATIONS</DefineConstants>
+
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+        <DebugType>Embedded</DebugType>
+
+        <RepositoryUrl>{}</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
+
+        <Authors>Fildrance</Authors>
+        <Description>Utilities for easy application initialization with useful   default features - initializable services, health-checks for k8s etc.</Description>
+        <Copyright>Fildrance</Copyright>
+        <PackageTags>web;webapi;hosting;module</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Enterprise.ApplicationBootstrap.Core\Enterprise.ApplicationBootstrap.Core.csproj" />
+        <ProjectReference Include="..\Enterprise.ApplicationBootstrap.Logging.Serilog\Enterprise.ApplicationBootstrap.Logging.Serilog.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
+      
+      <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" Version="8.0.0" />
+      
+      <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.0" />
+      
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+      
+      <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Extensions\" />
+    </ItemGroup>
+
+</Project>

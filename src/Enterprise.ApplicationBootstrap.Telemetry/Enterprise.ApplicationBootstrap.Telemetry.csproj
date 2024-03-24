@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+      <DefineConstants>JETBRAINS_ANNOTATIONS</DefineConstants>
+
+      <IncludeSymbols>true</IncludeSymbols>
+      <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+      <PublishRepositoryUrl>true</PublishRepositoryUrl>
+      <GenerateDocumentationFile>True</GenerateDocumentationFile>
+
+      <EmbedUntrackedSources>true</EmbedUntrackedSources>
+      <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+      <DebugType>Embedded</DebugType>
+
+      <RepositoryUrl>{}</RepositoryUrl>
+      <RepositoryType>git</RepositoryType>
+
+      <Authors>Fildrance</Authors>
+      <Description>
+          Package with default OpenTelemetry module for Enterprise.ApplicationBootstrap.Core.
+      </Description>
+      <Copyright>Fildrance</Copyright>
+      <PackageTags>telemetry;hosting;module</PackageTags>
+  </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="OpenTelemetry.Extensions.Hosting" Version="1.6.0" />
+        <PackageReference Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.6.0" />
+        <PackageReference Include="OpenTelemetry.Instrumentation.Http" Version="1.6.0-rc.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Enterprise.ApplicationBootstrap.Core\Enterprise.ApplicationBootstrap.Core.csproj" />
+    </ItemGroup>
+
+</Project>
