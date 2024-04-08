@@ -9,76 +9,61 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.203
+        source-url: https://nuget.pkg.github.com/Fildrance/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
+
+    - name: Install GitVersion
+      uses: gittools/actions/gitversion/setup@v1.1.1
+      with:
+        versionSpec: '5.x'
+        preferLatestVersion: true
+    - name: Determine Version
+      uses: gittools/actions/gitversion/execute@v1.1.1
+      with:
+        updateAssemblyInfo: true
+
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ env.fullSemVer }}
 
-    - name: Publish Enterprise.ApplicationBootstrap.Core
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.Core
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.Core to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.Core.Api
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core.Api/Enterprise.ApplicationBootstrap.Core.Api.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.Core.Api
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core.Api/Enterprise.ApplicationBootstrap.Core.Api.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.Core.Api to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core.Api/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.Core
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.DataAccessLayer
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer/Enterprise.ApplicationBootstrap.DataAccessLayer.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.DataAccessLayer to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.DataAccessLayer
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.DataAccessLayer/Enterprise.ApplicationBootstrap.DataAccessLayer.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.Logging.Serilog
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Logging.Serilog/Enterprise.ApplicationBootstrap.Logging.Serilog.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.Logging.Serilog to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Logging.Serilog/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.Logging.Serilog
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Logging.Serilog/Enterprise.ApplicationBootstrap.Logging.Serilog.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.Telemetry
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Telemetry/Enterprise.ApplicationBootstrap.Telemetry.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.Telemetry to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Telemetry/bin/Release/*.nupkg
 
-    - name: Publish Enterprise.ApplicationBootstrap.Telemetry
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Telemetry/Enterprise.ApplicationBootstrap.Telemetry.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
-
-    - name: Publish Enterprise.ApplicationBootstrap.WebApi
-      uses: brandedoutcast/publish-nuget@v2.5.2
-      with:
-          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.WebApi/Enterprise.ApplicationBootstrap.WebApi.csproj
-          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
-          NUGET_SOURCE: "github"
-          INCLUDE_SYMBOLS: true
+    - name: Create package Enterprise.ApplicationBootstrap.WebApi
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.WebApi/Enterprise.ApplicationBootstrap.WebApi.csproj /p:PackageVersion=${{ env.fullSemVer }}
+    - name: Publish package Enterprise.ApplicationBootstrap.WebApi to GPR
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.WebApi/bin/Release/*.nupkg
