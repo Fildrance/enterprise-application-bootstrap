@@ -17,10 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.203
-        source-url: https://nuget.pkg.github.com/Fildrance/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
-
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v1.1.1
