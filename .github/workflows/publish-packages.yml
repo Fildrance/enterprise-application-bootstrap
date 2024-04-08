@@ -31,41 +31,41 @@ jobs:
     - name: Install dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build --configuration Release --no-restore /p:Version=${{ env.fullSemVer }}
+      run: dotnet build --configuration Release --no-restore /p:Version=${{ env.assemblySemVer }}
     - name: setup nuget
       run: dotnet nuget add source --username USERNAME --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Fildrance/index.json"
 
     - name: Create package Enterprise.ApplicationBootstrap.Core
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.Core to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.Core.Api
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core.Api/Enterprise.ApplicationBootstrap.Core.Api.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core.Api/Enterprise.ApplicationBootstrap.Core.Api.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.Core.Api to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core.Api/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Core.Api/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.DataAccessLayer
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer/Enterprise.ApplicationBootstrap.DataAccessLayer.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer/Enterprise.ApplicationBootstrap.DataAccessLayer.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.DataAccessLayer to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.Logging.Serilog
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Logging.Serilog/Enterprise.ApplicationBootstrap.Logging.Serilog.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Logging.Serilog/Enterprise.ApplicationBootstrap.Logging.Serilog.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.Logging.Serilog to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Logging.Serilog/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Logging.Serilog/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.Telemetry
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Telemetry/Enterprise.ApplicationBootstrap.Telemetry.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Telemetry/Enterprise.ApplicationBootstrap.Telemetry.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.Telemetry to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Telemetry/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.Telemetry/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
 
     - name: Create package Enterprise.ApplicationBootstrap.WebApi
-      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.WebApi/Enterprise.ApplicationBootstrap.WebApi.csproj /p:PackageVersion=${{ env.fullSemVer }}
+      run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.WebApi/Enterprise.ApplicationBootstrap.WebApi.csproj /p:PackageVersion=${{ env.majorMinorPatch }}
     - name: Publish package Enterprise.ApplicationBootstrap.WebApi to GPR
-      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.WebApi/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"
+      run: dotnet nuget push src/Enterprise.ApplicationBootstrap.WebApi/bin/Release/*.nupkg --api-key ${{ secrets.NUGET_API_KEY }}  --source "github"  --skip-duplicate  
