@@ -1,0 +1,84 @@
+name: Publish Packages
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.101
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Publish Enterprise.ApplicationBootstrap.Core
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.Core.Api
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core.Api/Enterprise.ApplicationBootstrap.Core.Api.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.Core
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.DataAccessLayer
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.DataAccessLayer/Enterprise.ApplicationBootstrap.DataAccessLayer.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql/Enterprise.ApplicationBootstrap.DataAccessLayer.PgSql.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.Logging.Serilog
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Logging.Serilog/Enterprise.ApplicationBootstrap.Logging.Serilog.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.Telemetry
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.Telemetry/Enterprise.ApplicationBootstrap.Telemetry.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
+
+    - name: Publish Enterprise.ApplicationBootstrap.WebApi
+      uses: brandedoutcast/publish-nuget@v2.5.2
+      with:
+          PROJECT_FILE_PATH: src/Enterprise.ApplicationBootstrap.WebApi/Enterprise.ApplicationBootstrap.WebApi.csproj
+          NUGET_KEY: ${{secrets.NUGET_API_KEY}}
+          NUGET_SOURCE: "github"
+          INCLUDE_SYMBOLS: true
