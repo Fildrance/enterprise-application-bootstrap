@@ -21,7 +21,7 @@
     
     <ItemGroup>
         <ProjectReference Include="..\..\src\Enterprise.ApplicationBootstrap.Telemetry\Enterprise.ApplicationBootstrap.Telemetry.csproj" />
-        <ProjectReference Include="..\..\src\Entierprise.ApplicationBootstrap.WebApi\Enterprise.ApplicationBootstrap.WebApi.csproj" />
+        <ProjectReference Include="..\..\src\Enterprise.ApplicationBootstrap.WebApi\Enterprise.ApplicationBootstrap.WebApi.csproj" />
     </ItemGroup>
 
     <ItemGroup>
