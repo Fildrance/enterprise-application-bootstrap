@@ -18,8 +18,6 @@ jobs:
       with:
         dotnet-version: 8.0.203
         source-url: https://nuget.pkg.github.com/Fildrance/index.json
-      env:
-        NUGET_AUTH_TOKEN: ${{secrets.NUGET_API_KEY}}
 
     - name: Install GitVersion
       uses: gittools/actions/gitversion/setup@v1.1.1
@@ -35,6 +33,8 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore /p:Version=${{ env.fullSemVer }}
+    - name: setup nuget
+      run: dotnet nuget add source --username USERNAME --password ${{ secrets.NUGET_API_KEY }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/Fildrance/index.json"
 
     - name: Create package Enterprise.ApplicationBootstrap.Core
       run: dotnet pack --configuration Release src/Enterprise.ApplicationBootstrap.Core/Enterprise.ApplicationBootstrap.Core.csproj /p:PackageVersion=${{ env.fullSemVer }}
