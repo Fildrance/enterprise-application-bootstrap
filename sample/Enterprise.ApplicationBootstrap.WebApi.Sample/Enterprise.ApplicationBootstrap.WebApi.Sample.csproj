@@ -33,8 +33,4 @@
         </Content>
     </ItemGroup>
 
-    <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-      <Exec Command="swagger tofile --output .\swagger.json &quot;$(OutputPath)$(AssemblyName).dll&quot; latest" />
-    </Target>
-
 </Project>
